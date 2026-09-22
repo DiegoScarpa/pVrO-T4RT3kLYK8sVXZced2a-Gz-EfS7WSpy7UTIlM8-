@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "News Intelligence",
-  description: "A calm, source-transparent daily news briefing.",
+  title: "Pallets Argentina | Pallets de madera para operaciones que no paran",
+  description: "Fabricamos pallets de madera eucaliptus saligna, medidas estándar y especiales para empresas de todo el país.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

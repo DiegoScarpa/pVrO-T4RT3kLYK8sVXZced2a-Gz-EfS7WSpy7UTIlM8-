@@ -1,57 +1,46 @@
 import Link from "next/link";
-import { prisma } from "@/src/lib/db";
-import { DashboardSearch } from "@/src/components/dashboard-search";
-import { IngestButton } from "@/src/components/ingest-button";
+import { FaqList } from "@/src/components/faq-list";
+import { PalletMark } from "@/src/components/pallet-mark";
+import { QuoteForm } from "@/src/components/quote-form";
+import { contact, products, serviceAreas, services } from "@/src/lib/site";
 
-export const dynamic = "force-dynamic";
-
-const demoTopics = ["AI", "Business", "Economy", "Technology", "Startups", "Markets"];
-
-async function getDashboardData() {
-  try {
-    const [categories, stories, preference, latestRun] = await Promise.all([
-      prisma.category.findMany({ orderBy: { sortOrder: "asc" } }),
-      prisma.story.findMany({ where: { summary: { not: null } }, include: { primaryCategory: true, storySources: { include: { source: true } }, articles: true }, orderBy: [{ importanceScore: "desc" }, { lastUpdatedAt: "desc" }], take: 12 }),
-      prisma.userPreference.findFirst(),
-      prisma.ingestionRun.findFirst({ orderBy: { startedAt: "desc" } }),
-    ]);
-    return { categories, stories, preference, latestRun, configured: true };
-  } catch {
-    return { categories: [], stories: [], preference: null, latestRun: null, configured: false };
-  }
+function Eyebrow({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
+  return <p className={`eyebrow ${light ? "eyebrow-light" : ""}`}><span className="eyebrow-dot" />{children}</p>;
 }
 
-function formatDate(date: Date | null | undefined) {
-  if (!date) return "Recently";
-  return new Intl.DateTimeFormat("en", { month: "short", day: "numeric", hour: "numeric" }).format(date);
-}
-
-export default async function Home() {
-  const { categories, stories, preference, latestRun, configured } = await getDashboardData();
-  const interests = Array.isArray(preference?.topics) ? preference.topics as string[] : demoTopics.map((topic) => topic.toLowerCase());
-  return <div className="app-shell">
-    <header className="topbar">
-      <Link className="brand" href="/"><span className="brand-mark">NI</span><span><span className="brand-name">News Intelligence</span><span className="brand-sub">A calmer daily briefing</span></span></Link>
-      <DashboardSearch />
-      <div className="top-actions"><Link className="outline-button" href="/briefing">Daily briefing</Link><Link className="icon-button" href="/settings" aria-label="Settings">⚙</Link></div>
+export default function Home() {
+  return <main>
+    <header className="site-header">
+      <Link className="brand" href="#inicio" aria-label="Pallets Argentina, inicio"><span className="brand-mark">PA</span><span>Pallets<br /><em>Argentina</em></span></Link>
+      <nav className="desktop-nav" aria-label="Navegación principal"><a href="#productos">Productos</a><a href="#servicios">Servicios</a><a href="#nosotros">Nosotros</a><a href="#cobertura">Cobertura</a></nav>
+      <a className="header-cta" href="#cotizar">Cotizar <span>↗</span></a>
     </header>
-    <main className="main">
-      {!configured && <div className="notice">The database is not connected yet. Copy <code>.env.example</code> to <code>.env</code>, set <code>DATABASE_URL</code>, then run <code>npm run db:push && npm run db:seed</code>.</div>}
-      <nav className="topic-strip"><Link className="topic-pill active" href="/">For you</Link>{categories.slice(0, 12).map((category) => <Link className="topic-pill" key={category.id} href={`/search?category=${category.slug}`}>{category.name}</Link>)}</nav>
-      <div className="page-heading"><div><div className="eyebrow">Saturday, September 20, 2026</div><h1>Good morning.</h1><p>Your briefing is tuned to the topics you selected. Stories are grouped by event, with uncertainty and source differences kept visible.</p></div><IngestButton /></div>
-      <div className="layout-grid">
-        <section>
-          <div className="section-head"><h2>Top stories</h2><Link href="/timeline">View timeline →</Link></div>
-          {stories.length ? <div className="story-grid">{stories.slice(0, 6).map((story, index) => <Link href={`/stories/${story.id}`} className={`story-card ${index === 0 ? "featured" : ""}`} key={story.id}><div className="story-meta"><span className="story-category">{story.primaryCategory.name}</span><span>·</span><span>{formatDate(story.lastUpdatedAt)}</span></div><h3>{story.headline}</h3><p className="story-description">{story.summary}</p><div className="story-footer"><span className="story-source">{story.storySources.length} source{story.storySources.length === 1 ? "" : "s"} · {story.articles.length} article{story.articles.length === 1 ? "" : "s"}</span><span className={`confidence ${story.confidence === "Developing" ? "developing" : ""}`}>{story.confidence}</span></div></Link>)}</div> : <div className="empty-state">No summarized stories yet. Seed the database for a demo story, then run ingestion to retrieve live RSS reporting.</div>}
-          <div className="section-head"><h2>What changed</h2><Link href="/search">Search everything →</Link></div>
-          <div className="side-card"><p style={{margin: 0}}>The briefing updates as new sources arrive. AI synthesis is cached at the story level, so multiple articles about the same event do not trigger repeated summaries.</p><div className="metric-row"><div className="metric"><strong>{stories.length}</strong><span>stories in view</span></div><div className="metric"><strong>{stories.reduce((sum, story) => sum + story.storySources.length, 0)}</strong><span>source links</span></div><div className="metric"><strong>{latestRun?.articlesUpserted ?? 0}</strong><span>latest articles</span></div></div></div>
-        </section>
-        <aside className="sidebar">
-          <div className="side-card"><div className="eyebrow">Your signal</div><h3>Selected interests</h3><p>These topics shape the order of your briefing and the “why should I care?” context.</p><div className="interest-list">{interests.slice(0, 8).map((interest) => <span className="interest" key={interest}>{interest.replaceAll("-", " ")}</span>)}</div><Link className="outline-button" style={{display: "inline-block", marginTop: 17}} href="/settings">Tune preferences</Link></div>
-          <div className="side-card briefing-callout"><div className="eyebrow">Daily briefing</div><h3>Context, not noise.</h3><p>Open the briefing to see sections for AI & technology, business & economy, markets, world, and the United States.</p><Link className="primary-button" style={{display: "inline-block"}} href="/briefing">Read briefing →</Link></div>
-          <div className="side-card"><h3>System status</h3><p><span className={`status-dot ${latestRun?.status === "failed" ? "error" : ""}`}></span>{latestRun ? `${latestRun.status} · ${formatDate(latestRun.completedAt ?? latestRun.startedAt)}` : "Waiting for first ingestion"}</p><Link href="/status" className="back-link">Open status →</Link></div>
-        </aside>
+
+    <section id="inicio" className="hero section-shell">
+      <div className="hero-copy">
+        <Eyebrow>Logística que arranca desde abajo</Eyebrow>
+        <h1>Pallets que<br /><span>aguantan el ritmo.</span></h1>
+        <p className="hero-intro">Fabricamos pallets de madera para que tu operación se mueva con seguridad, continuidad y menos improvisación.</p>
+        <div className="hero-actions"><a className="button button-dark" href="#cotizar">Pedí tu cotización <span>↗</span></a><a className="text-link" href="#productos">Ver productos <span>↓</span></a></div>
+        <div className="hero-note"><span>✓</span> Eucaliptus saligna seleccionado <span>•</span> Fabricación a medida</div>
       </div>
-    </main><div className="footer">News Intelligence · Source-transparent summaries · <Link href="/status">System status</Link></div>
-  </div>;
+      <div className="hero-art" aria-label="Pallets de madera en depósito" role="img"><div className="hero-image" /><div className="hero-stamp"><strong>Desde 2014</strong><span>Calidad que<br />se sostiene</span></div><div className="hero-side-note">PALLETS<br /><span>BUENOS AIRES · ARG</span></div><div className="hero-pallet"><PalletMark /></div></div>
+    </section>
+
+    <section className="trust-strip"><div className="section-shell trust-grid"><p className="trust-lead">Una base confiable para<br /><strong>operaciones que no paran.</strong></p><div className="trust-stat"><strong>+10</strong><span>años de experiencia</span></div><div className="trust-stat"><strong>100%</strong><span>asesoría personalizada</span></div><div className="trust-stat"><strong>AR</strong><span>entregas en todo el país</span></div></div></section>
+
+    <section id="productos" className="section-shell products-section"><div className="section-heading"><div><Eyebrow>Lo que fabricamos</Eyebrow><h2>Una solución para<br /><em>cada carga.</em></h2></div><p className="section-summary">Elegí una medida estándar o contanos qué necesitás. Te ayudamos a encontrar el pallet correcto para tu circuito.</p></div><div className="product-grid">{products.map((product) => <article className={`product-card product-card-${product.tone}`} key={product.name}><div className="product-image-wrap"><div className="product-illustration"><PalletMark variant={product.tone} /></div><span className="product-tag">{product.tag}</span></div><div className="product-content"><div><p className="product-number">{product.number}</p><h3>{product.name}</h3><p>{product.description}</p><small>{product.size}</small></div><a href="#cotizar" aria-label={`Cotizar ${product.name}`}>↗</a></div></article>)}</div></section>
+
+    <section id="servicios" className="services-section"><div className="section-shell"><div className="section-heading section-heading-light"><div><Eyebrow light>Cómo trabajamos</Eyebrow><h2>Más que un pallet.<br /><em>Una respuesta.</em></h2></div><p className="section-summary">Entendemos el ritmo de tu operación y te acompañamos desde la elección del modelo hasta la entrega.</p></div><div className="service-list">{services.map((service) => <article className="service-row" key={service.number}><span>{service.number}</span><h3>{service.title}</h3><p>{service.description}</p><a href="#cotizar" aria-label={`Consultar por ${service.title}`}>↗</a></article>)}</div></div></section>
+
+    <section id="nosotros" className="about-section"><div className="section-shell about-grid"><div className="about-image"><div className="about-photo" /><span className="about-caption">Hechos para el trabajo real.</span></div><div className="about-copy"><Eyebrow>Por qué Pallets Argentina</Eyebrow><h2>La calidad se nota<br /><em>cuando hace falta.</em></h2><p>Somos especialistas en pallets de madera eucaliptus saligna. Trabajamos con un control de calidad estricto para que cada unidad responda en el depósito, en el camión y en el destino.</p><p>Fabricamos medidas estándar y especiales, con atención directa y respuesta rápida. Porque tu operación no puede esperar.</p><a className="text-link text-link-light" href="#cotizar">Hablemos de tu operación <span>↗</span></a></div></div></section>
+
+    <section id="cobertura" className="coverage-section section-shell"><div className="coverage-copy"><Eyebrow>Donde necesitás llegar</Eyebrow><h2>Una red que parte<br /><em>desde Buenos Aires.</em></h2><p>Coordinamos entregas para acompañar operaciones en CABA, Gran Buenos Aires y distintos puntos del interior.</p><a className="text-link" href="#cotizar">Consultá por tu zona <span>↗</span></a></div><div className="coverage-map" aria-label="Mapa ilustrado de cobertura en Argentina"><div className="map-glow" /><div className="map-pin pin-ba">BA</div><div className="map-pin pin-norte">NOA</div><div className="map-pin pin-centro">CENTRO</div><div className="map-label">ARGENTINA<br /><span>cobertura coordinada</span></div></div><div className="area-list">{serviceAreas.map((area) => <span key={area}>{area}</span>)}</div></section>
+
+    <section id="faq" className="faq-section section-shell"><div className="faq-intro"><Eyebrow>Antes de cotizar</Eyebrow><h2>Lo que suelen<br /><em>preguntarnos.</em></h2></div><FaqList /></section>
+
+    <section id="cotizar" className="quote-section"><div className="section-shell quote-grid"><div className="quote-copy"><Eyebrow light>Empecemos</Eyebrow><h2>Contanos qué<br /><em>necesitás mover.</em></h2><p>Respondemos rápido con una recomendación clara y una cotización a medida.</p><div className="contact-details"><a href={`https://wa.me/${contact.whatsapp}`} target="_blank" rel="noreferrer"><span>WhatsApp</span>{contact.whatsappLabel} ↗</a><a href={`mailto:${contact.email}`}><span>Email</span>{contact.email} ↗</a></div></div><QuoteForm /></div></section>
+
+    <footer className="site-footer"><div className="section-shell footer-grid"><Link className="brand brand-footer" href="#inicio"><span className="brand-mark">PA</span><span>Pallets<br /><em>Argentina</em></span></Link><p>Una base confiable para operaciones que no paran.</p><div className="footer-links"><a href="#productos">Productos</a><a href="#servicios">Servicios</a><a href="#nosotros">Nosotros</a><a href="#cotizar">Contacto</a></div><small>© {new Date().getFullYear()} Pallets Argentina · {contact.location}</small></div></footer>
+  </main>;
 }
