@@ -1,0 +1,12 @@
+import Link from "next/link";
+import { prisma } from "@/src/lib/db";
+
+export const dynamic = "force-dynamic";
+
+export default async function BriefingPage() {
+  let stories: any[] = [];
+  try { stories = await prisma.story.findMany({ where: { summary: { not: null } }, include: { primaryCategory: true, storySources: { include: { source: true } } }, orderBy: [{ importanceScore: "desc" }, { lastUpdatedAt: "desc" }], take: 20 }); } catch {}
+  const sections = ["ai", "technology", "business", "economy", "financial-markets", "world", "united-states"];
+  const sectionName: Record<string, string> = { ai: "AI & Technology", technology: "Technology", business: "Business & Economy", economy: "Business & Economy", "financial-markets": "Markets", world: "World", "united-states": "United States" };
+  return <div className="app-shell"><header className="topbar"><Link className="brand" href="/"><span className="brand-mark">NI</span><span><span className="brand-name">News Intelligence</span><span className="brand-sub">Daily briefing</span></span></Link><div className="top-actions"><Link className="outline-button" href="/">← Dashboard</Link></div></header><main className="main"><article className="story-page"><div className="eyebrow">Saturday, September 20, 2026</div><h1>Good morning.</h1><p className="story-deck">Here is what changed across the topics you follow, ordered by recency, source diversity, relevance, and potential impact.</p><section className="detail-panel full" style={{marginTop: 30}}><h2>Top stories</h2>{stories.slice(0, 5).map((story, index) => <div className="source-item" key={story.id}><span><strong>{index + 1}. {story.headline}</strong><br /><small>{story.summary}</small></span><Link href={`/stories/${story.id}`}>Read →</Link></div>)}</section>{sections.map((section) => { const matching = stories.filter((story) => story.primaryCategory.slug === section); if (!matching.length) return null; return <section className="detail-panel full" key={section}><h2>{sectionName[section] || section}</h2>{matching.slice(0, 3).map((story) => <div className="source-item" key={story.id}><span><strong>{story.headline}</strong><br /><small>{story.summary}</small></span><Link href={`/stories/${story.id}`}>Open →</Link></div>)}</section>; })}<section className="detail-panel full"><h2>What changed</h2><p>Stories are grouped by event to reduce duplicate coverage. Open any story to see every linked source, publication date, and the distinction between sourced facts and AI context.</p></section></article></main></div>;
+}
