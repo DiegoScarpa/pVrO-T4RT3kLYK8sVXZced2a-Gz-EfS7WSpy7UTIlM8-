@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './quote-form.css';
 
 export const metadata: Metadata = {
   title: 'Pallets Argentina | Pallets de madera para operaciones que no paran',

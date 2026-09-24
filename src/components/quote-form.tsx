@@ -2,6 +2,41 @@
 
 import { FormEvent, useState } from "react";
 
+const palletSizes = [
+  "1200 × 1000mm (Tipo Arlog)",
+  "1200 × 1000mm (Descartable)",
+  "1200 × 1200mm",
+  "800 × 1200 mm (EuroPallet)",
+  "1000 × 1000 mm",
+  "Otra Medidas",
+];
+
+const palletTypes = [
+  "Pallet de 9 tacos de madera (4 entradas)",
+  "Pallet de 3 Tirantes/Largueros (2 entradas)",
+  "Pallet de 4 Tirantes/Largueros (2 entradas)",
+];
+
+const loadCapacities = [
+  "Hasta 500 Kg (Liviano)",
+  "Entre 500 a 800 Kg (Normal)",
+  "800 a 1.000 Kg (Fuerte)",
+  "1.000 a 1.200 Kg (Fuerte y Pesado)",
+  "Mas de 1.200 Kg (Especial)",
+];
+
+const requiredFields = [
+  "palletSize",
+  "palletCondition",
+  "palletType",
+  "exportation",
+  "loadCapacity",
+  "quantity",
+  "companyName",
+  "fullName",
+  "email",
+] as const;
+
 export function QuoteForm() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
@@ -11,14 +46,19 @@ export function QuoteForm() {
     event.preventDefault();
     if (submitting) return;
 
-    const data = new FormData(event.currentTarget);
-    const name = String(data.get("name") ?? "").trim();
-    const email = String(data.get("email") ?? "").trim();
-    const need = String(data.get("need") ?? "").trim();
-    const quantity = String(data.get("quantity") ?? "").trim();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const values = Object.fromEntries(data.entries());
+    const missing = requiredFields.some((field) => !String(values[field] ?? "").trim());
+    const email = String(values.email ?? "").trim();
 
-    if (!name || !email || !need) {
-      setError("Completá nombre, email y qué necesitás para enviar la consulta.");
+    if (missing) {
+      setError("Completá todos los campos obligatorios para enviar la consulta.");
+      return;
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      setError("Ingresá un email válido.");
       return;
     }
 
@@ -29,13 +69,13 @@ export function QuoteForm() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, need, quantity }),
+        body: JSON.stringify(values),
       });
 
       const result = (await response.json()) as { error?: string };
       if (!response.ok) throw new Error(result.error || "No pudimos enviar la consulta.");
 
-      event.currentTarget.reset();
+      form.reset();
       setSent(true);
     } catch (submissionError) {
       setError(submissionError instanceof Error ? submissionError.message : "No pudimos enviar la consulta. Intentá nuevamente.");
@@ -43,12 +83,72 @@ export function QuoteForm() {
       setSubmitting(false);
     }
   }
+
   return <form className="quote-form" onSubmit={submit} noValidate>
-    <label>Nombre / Empresa<input required name="name" placeholder="¿Con quién hablamos?" /></label>
-    <label>Email<input required type="email" name="email" placeholder="Tu email de contacto" /></label>
-    <label>¿Qué necesitás?<textarea required name="need" placeholder="Contanos medida, cantidad o tipo de carga" rows={3} /></label>
-    <label>Cantidad estimada<input name="quantity" placeholder="Ej: 100 unidades" /></label>
-    <button className="button button-lime" type="submit" disabled={submitting}>{submitting ? "Enviando..." : "Solicitar cotización"} <span>↗</span></button>
-    {sent ? <p className="form-success" role="status" aria-live="polite">¡Listo! Recibimos tu consulta y te responderemos a la brevedad.</p> : error ? <p className="form-error" role="alert">{error}</p> : <p className="form-footnote">Te respondemos directo, sin formularios eternos.</p>}
+    {sent ? <div className="form-success" role="status" aria-live="polite">
+      <span>✓</span>
+      <h3>¡Listo! Recibimos tu consulta.</h3>
+      <p>Te vamos a responder a la brevedad para ayudarte con tu próximo movimiento.</p>
+      <button type="button" onClick={() => setSent(false)}>Enviar otra consulta</button>
+    </div> : <>
+      <label>Medida del Pallet <b>*</b>
+        <select required name="palletSize" defaultValue="">
+          <option value="" disabled>Escoja la medida del pallet.</option>
+          {palletSizes.map((option) => <option key={option} value={option}>{option}</option>)}
+        </select>
+      </label>
+
+      <fieldset className="quote-fieldset">
+        <legend>Estado del Pallet <b>*</b></legend>
+        <div className="quote-options">
+          {[
+            ["Pallet Nuevo", "new"],
+            ["Pallet Usado/Reciclado", "used"],
+            ["Pallet Reciclado Seleccionado", "selected-recycled"],
+          ].map(([label, value]) => <label className="quote-option" key={value}>
+            <input required type="radio" name="palletCondition" value={value} />
+            <span>{label}</span>
+          </label>)}
+        </div>
+      </fieldset>
+
+      <label>Tipo de Pallet <b>*</b>
+        <select required name="palletType" defaultValue="">
+          <option value="" disabled>Seleccione el tipo de pallet.</option>
+          {palletTypes.map((option) => <option key={option} value={option}>{option}</option>)}
+        </select>
+      </label>
+
+      <fieldset className="quote-fieldset">
+        <legend>Exportación <b>*</b></legend>
+        <div className="quote-options quote-options-inline">
+          <label className="quote-option"><input required type="radio" name="exportation" value="para Exportacion (Catem)" /><span>para Exportacion (Catem)</span></label>
+          <label className="quote-option"><input required type="radio" name="exportation" value="No Exportacion (Uso Nacional)" /><span>No Exportacion (Uso Nacional)</span></label>
+        </div>
+      </fieldset>
+
+      <label>Capacidad de Carga <b>*</b>
+        <select required name="loadCapacity" defaultValue="">
+          <option value="" disabled>Seleccione la capacidad de carga.</option>
+          {loadCapacities.map((option) => <option key={option} value={option}>{option}</option>)}
+        </select>
+      </label>
+
+      <div className="quote-form-grid">
+        <label>Cantidad de Pallets <b>*</b><input required name="quantity" placeholder="Cant de Pallets" /></label>
+        <label>Nombre Empresa <b>*</b><input required name="companyName" placeholder="Nombre de la Empresa" /></label>
+        <label>Nombre y Apellido <b>*</b><input required name="fullName" placeholder="Nombre y Apellido" /></label>
+        <label>Email <b>*</b><input required type="email" name="email" placeholder="Email" /></label>
+      </div>
+
+      <label>Detalles<textarea name="details" placeholder="Detalles que desee comentarnos" rows={3} /></label>
+
+      <div className="quote-honeypot" aria-hidden="true">
+        <label>Website<input tabIndex={-1} autoComplete="off" name="website" /></label>
+      </div>
+
+      <button className="button button-submit" type="submit" disabled={submitting}>{submitting ? "Enviando..." : "Enviar"} <span>↗</span></button>
+      {error ? <p className="form-error" role="alert">{error}</p> : <p className="form-footnote">Te respondemos directo, sin formularios eternos.</p>}
+    </>}
   </form>;
 }
