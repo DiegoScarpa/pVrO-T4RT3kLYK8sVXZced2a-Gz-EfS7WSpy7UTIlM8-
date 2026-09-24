@@ -3,10 +3,10 @@
 import { FormEvent, useState } from "react";
 
 const palletSizes = [
-  "1200 × 1000mm (Tipo Arlog)",
-  "1200 × 1000mm (Descartable)",
+  "1200 × 1000 mm (Tipo Arlog)",
+  "1200 × 1000 mm (Descartable)",
   "1200 × 1200mm",
-  "800 × 1200 mm (EuroPallet)",
+  "800 x 1200 mm (Tipo Euro)",
   "1000 × 1000 mm",
   "Otra Medidas",
 ];
