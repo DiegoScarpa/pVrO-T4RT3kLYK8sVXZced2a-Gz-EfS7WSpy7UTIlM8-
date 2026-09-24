@@ -1,6 +1,7 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
+import { QuoteForm } from '../components/quote-form';
 
 const products = [
   { name: 'Pallet Arlog', detail: 'La medida estándar para mover más, con menos fricción.', image: 'https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https%3A//assets.cdn.filesafe.space/IBVC0ujkEUoZsdBxS8Hv/media/66747496e6de7ec756e5f1f3.png', tag: 'Más elegido' },
@@ -16,8 +17,6 @@ const faqs = [
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(0);
-  const [sent, setSent] = useState(false);
-  function handleSubmit(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setSent(true); }
 
   return (
     <main>
@@ -40,7 +39,7 @@ export default function Home() {
 
       <section id="faq" className="section-shell faq-section"><div className="faq-intro"><p className="eyebrow"><span className="eyebrow-dot" /> Antes de cotizar</p><h2>Lo que suelen<br /><em>preguntarnos.</em></h2></div><div className="faq-list">{faqs.map(([question, answer], index) => <div className={`faq-item ${openFaq === index ? 'is-open' : ''}`} key={question}><button onClick={() => setOpenFaq(openFaq === index ? -1 : index)} aria-expanded={openFaq === index}><span>0{index + 1}</span><strong>{question}</strong><i>{openFaq === index ? '−' : '+'}</i></button>{openFaq === index && <p>{answer}</p>}</div>)}</div></section>
 
-      <section id="cotizar" className="quote-section"><div className="section-shell quote-grid"><div className="quote-copy"><p className="eyebrow eyebrow-lime"><span className="eyebrow-dot" /> Empecemos</p><h2>Contanos qué<br /><em>necesitás mover.</em></h2><p>Respondemos rápido con una recomendación clara y una cotización a medida.</p><div className="contact-details"><a href="https://wa.me/541128435793" target="_blank" rel="noreferrer"><span>WhatsApp</span>11 2843 5793 ↗</a><a href="mailto:info@palletsargentina.com"><span>Email</span>info@palletsargentina.com ↗</a></div></div><form className="quote-form" onSubmit={handleSubmit}>{sent ? <div className="form-success"><span>✓</span><h3>¡Listo! Recibimos tu consulta.</h3><p>Te vamos a responder a la brevedad para ayudarte con tu próximo movimiento.</p><button type="button" onClick={() => setSent(false)}>Enviar otra consulta</button></div> : <><label>Nombre / Empresa<input name="name" required placeholder="¿Con quién hablamos?" /></label><label>¿Qué necesitás?<textarea name="need" required placeholder="Contanos medida, cantidad o tipo de carga" rows={3} /></label><button className="button button-lime" type="submit">Solicitar cotización <span>↗</span></button><p className="form-footnote">Sin formularios eternos. Te respondemos directo.</p></>}</form></div></section>
+      <section id="cotizar" className="quote-section"><div className="section-shell quote-grid"><div className="quote-copy"><p className="eyebrow eyebrow-lime"><span className="eyebrow-dot" /> Empecemos</p><h2>Contanos qué<br /><em>necesitás mover.</em></h2><p>Respondemos rápido con una recomendación clara y una cotización a medida.</p><div className="contact-details"><a href="https://wa.me/541128435793" target="_blank" rel="noreferrer"><span>WhatsApp</span>11 2843 5793 ↗</a><a href="mailto:info@palletsargentina.com"><span>Email</span>info@palletsargentina.com ↗</a></div></div><QuoteForm /></div></section>
 
       <footer className="site-footer"><div className="section-shell footer-grid"><a className="brand brand-footer" href="#inicio"><img className="brand-logo" src="/pallets-argentina-logo.png" alt="Pallets Argentina" /></a><p>Una base confiable para operaciones que no paran.</p><div className="footer-links"><a href="#productos">Productos</a><a href="#nosotros">Nosotros</a><a href="#cotizar">Contacto</a></div></div><div className="section-shell footer-bottom"><span>© 2024 Pallets Argentina</span><span>Buenos Aires · Argentina</span></div></footer>
     </main>
