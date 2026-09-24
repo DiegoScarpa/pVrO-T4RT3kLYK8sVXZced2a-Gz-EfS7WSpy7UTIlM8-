@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import './quote-form.css';
+import './targeted-updates.css';
 
 export const metadata: Metadata = {
   title: 'Pallets Argentina | Pallets de madera para operaciones que no paran',
-  description: 'Fabricamos pallets de madera eucaliptus saligna, medidas estándar y especiales para empresas de todo el país.',
+  description: 'Fabricamos pallets de madera, medidas estándar y especiales para empresas de todo el país.',
   icons: {
     icon: '/pallets-argentina-logo.png',
     shortcut: '/pallets-argentina-logo.png',

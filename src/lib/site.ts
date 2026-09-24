@@ -14,8 +14,8 @@ export const serviceAreas = ["Buenos Aires", "CABA", "Zona Norte", "Zona Oeste",
 
 export const faqs = [
   { question: "¿Trabajan medidas especiales?", answer: "Sí. Fabricamos medidas estándar y especiales según el tipo de carga, el circuito y el espacio disponible." },
-  { question: "¿Qué madera utilizan?", answer: "Trabajamos con madera de eucaliptus saligna seleccionada para ofrecer una base firme y confiable para tu operación." },
+  { question: "¿Qué madera utilizan?", answer: "Trabajamos con madera seleccionada para ofrecer una base firme y confiable para tu operación." },
   { question: "¿Hacen entregas?", answer: "Sí. Coordinamos entregas en Buenos Aires, CABA y distintos puntos del país según volumen y destino." },
 ];
 
-export const contact = { whatsapp: "541128435793", whatsappLabel: "11 2843 5793", email: "info@palletsargentina.com", location: "Buenos Aires · Argentina" };
+export const contact = { whatsapp: "541128435793", whatsappLabel: "11 2843 5793", email: "ventas@palletsargentina.com", location: "Buenos Aires · Argentina" };
