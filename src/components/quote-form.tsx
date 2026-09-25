@@ -102,11 +102,11 @@ export function QuoteForm() {
         <legend>Estado del Pallet <b>*</b></legend>
         <div className="quote-options">
           {[
-            ["Pallet Nuevo", "new"],
-            ["Pallet Usado/Reciclado", "used"],
-            ["Pallet Reciclado Seleccionado", "selected-recycled"],
-          ].map(([label, value]) => <label className="quote-option" key={value}>
-            <input required type="radio" name="palletCondition" value={value} />
+            "Pallet Nuevo",
+            "Pallet Usado/Reciclado",
+            "Pallet Reciclado Seleccionado",
+          ].map((label) => <label className="quote-option" key={label}>
+            <input required type="radio" name="palletCondition" value={label} />
             <span>{label}</span>
           </label>)}
         </div>
