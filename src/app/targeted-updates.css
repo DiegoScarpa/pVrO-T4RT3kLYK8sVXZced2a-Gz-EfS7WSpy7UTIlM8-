@@ -17,9 +17,39 @@
 .hero-stamp strong { font-size: 15px; }
 .hero-stamp span { max-width: 100px; }
 
+.contact-details a .contact-label {
+  color: #899890;
+  font: 10px Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+}
+
+.contact-details a .contact-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  font-family: Georgia, serif;
+  font-size: 18px;
+  letter-spacing: -.04em;
+  white-space: nowrap;
+}
+
+.contact-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  color: var(--lime);
+}
+
 @media (max-width: 800px) {
   .product-grid {
     max-width: none;
     grid-template-columns: 1fr;
   }
+}
+
+@media (max-width: 420px) {
+  .contact-details a .contact-value { font-size: 17px; }
+  .contact-icon { width: 17px; height: 17px; flex-basis: 17px; }
 }
