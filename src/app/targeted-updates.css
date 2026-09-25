@@ -32,6 +32,7 @@
   font-family: Georgia, serif;
   font-size: 18px;
   letter-spacing: -.04em;
+  text-transform: none;
   white-space: nowrap;
 }
 
