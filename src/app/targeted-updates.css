@@ -73,6 +73,10 @@
   object-position: center center;
 }
 
+.product-card-2 .product-image-wrap img {
+  object-position: 46% center;
+}
+
 @media (max-width: 800px) {
   .product-grid {
     max-width: none;
