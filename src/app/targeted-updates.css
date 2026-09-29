@@ -45,8 +45,8 @@
 
 /* Requested refinements: keep the existing brand treatment, but improve visibility and alignment. */
 .brand-logo {
-  width: 206px;
-  height: 58px;
+  width: 320px;
+  height: 68px;
   object-fit: cover;
   object-position: center;
 }
@@ -78,6 +78,11 @@
 }
 
 @media (max-width: 800px) {
+  .brand-logo {
+    width: min(300px, calc(100vw - 160px));
+    height: 64px;
+  }
+
   .product-grid {
     max-width: none;
     grid-template-columns: 1fr;
@@ -85,7 +90,7 @@
 }
 
 @media (max-width: 420px) {
-  .brand-logo { width: 180px; height: 54px; }
+  .brand-logo { width: min(240px, calc(100vw - 160px)); height: 60px; }
   .header-cta { min-height: 44px; padding-inline: 3px; font-size: 14px; }
   .contact-details a .contact-value { font-size: 17px; }
   .contact-icon { width: 17px; height: 17px; flex-basis: 17px; }
