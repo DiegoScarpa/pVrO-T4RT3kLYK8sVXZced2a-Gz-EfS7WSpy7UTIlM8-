@@ -17,7 +17,7 @@ const commercialFaqs: Record<string, { question: string; answer: string }[]> = {
 };
 
 export function CommercialPage({ data }: { data: CommercialPageData }) {
-  const canonical = `${siteUrl}/${data.slug}/`;
+  const canonical = `${siteUrl}/${data.slug}`;
   const faqs = commercialFaqs[data.slug] ?? [];
   return <>
     <JsonLd data={{
@@ -58,7 +58,7 @@ export function CommercialPage({ data }: { data: CommercialPageData }) {
 }
 
 export function ProductPage({ data, slug }: { data: { title: string; description: string; eyebrow: string; h1: string; intro: string; facts: readonly string[]; paragraphs: readonly string[]; related: readonly { href: string; label: string }[] }; slug: string }) {
-  const canonical = `${siteUrl}/${slug}/`;
+  const canonical = `${siteUrl}/${slug}`;
   return <>
     <JsonLd data={{
       "@context": "https://schema.org",
