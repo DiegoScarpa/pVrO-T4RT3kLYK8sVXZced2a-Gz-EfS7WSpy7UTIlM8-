@@ -1,7 +1,10 @@
+export const siteUrl = "https://palletsargentina.com";
+export const siteName = "Pallets Argentina";
+
 export const products = [
-  { number: "01", name: "Pallet Arlog", tag: "Más elegido", size: "1.200 × 1.000 mm", description: "La medida estándar para mover más, con menos fricción.", detail: "Una solución resistente y versátil para depósitos, transporte y distribución nacional.", tone: "terracotta" },
-  { number: "02", name: "Pallet Euro", tag: "Exportación", size: "1.200 × 800 mm", description: "Precisión y compatibilidad para operaciones exigentes.", detail: "Formato confiable para circuitos de exportación y cadenas logísticas con medidas normalizadas.", tone: "sand" },
-  { number: "03", name: "Pallet para tambor", tag: "Especial", size: "A medida", description: "Una base estable para cargas cilíndricas y pesadas.", detail: "Diseñado para sostener tambores y cargas especiales con estabilidad en cada movimiento.", tone: "olive" },
+  { number: "01", slug: "pallet-arlog", name: "Pallet Arlog", tag: "Más elegido", size: "1.200 × 1.000 mm", description: "La medida estándar para mover más, con menos fricción.", detail: "Una solución resistente y versátil para depósitos, transporte y distribución nacional.", tone: "terracotta" },
+  { number: "02", slug: "pallet-euro", name: "Pallet Euro", tag: "Exportación", size: "1.200 × 800 mm", description: "Precisión y compatibilidad para operaciones exigentes.", detail: "Formato confiable para circuitos de exportación y cadenas logísticas con medidas normalizadas.", tone: "sand" },
+  { number: "03", slug: "pallet-para-tambor", name: "Pallet para tambor", tag: "Especial", size: "A medida", description: "Una base estable para cargas cilíndricas y pesadas.", detail: "Diseñado para sostener tambores y cargas especiales con estabilidad en cada movimiento.", tone: "olive" },
 ];
 
 export const services = [
