@@ -122,16 +122,42 @@ export const commercialPages: Record<string, CommercialPageData> = {
   },
   "pallets-buenos-aires": {
     slug: "pallets-buenos-aires",
-    title: "Pallets de Madera en Buenos Aires | Pallets Argentina",
-    description: "Venta y fabricación de pallets de madera para Buenos Aires, CABA y zonas Norte, Oeste y Sur. Consultá entrega, cantidad y disponibilidad.",
-    eyebrow: "Servicio en Buenos Aires",
-    h1: "Pallets de madera en Buenos Aires",
-    intro: "Pallets Argentina informa atención en Buenos Aires, CABA, zona Norte, zona Oeste, zona Sur e interior del país. Confirmamos cada destino según volumen y pedido.",
+    title: "Venta y Fabricación de Pallets en Buenos Aires | Pallets Argentina",
+    description: "Pallets nuevos, usados y a medida para empresas en CABA y Gran Buenos Aires. Consultá medidas, cantidades y opciones de entrega para cotizar.",
+    eyebrow: "Pallets para empresas en Buenos Aires",
+    h1: "Venta y fabricación de pallets en Buenos Aires",
+    intro: "Fabricamos pallets de madera para empresas y recibimos consultas por unidades nuevas, usadas y soluciones a medida. Atendemos pedidos para CABA y Gran Buenos Aires; cada cotización y entrega se confirma según las características del pedido.",
     sections: [
-      { heading: "Qué podés consultar", paragraphs: ["Trabajamos con pallet Arlog, pallet Euro, pallet para tambor, medidas especiales y alternativas nuevas o recicladas. La disponibilidad se revisa con la medida y cantidad solicitadas."], bullets: ["Venta para empresas y compras por cantidad", "Pallets estándar y a medida", "Coordinación de entrega según destino"] },
-      { heading: "Cobertura y coordinación", paragraphs: ["Escribinos con tu localidad dentro de Buenos Aires, CABA o el interior para confirmar si podemos coordinar la entrega de tu pedido. No publicamos plazos ni costos generales porque dependen de la cantidad y del destino."] },
+      {
+        heading: "Pallets nuevos, usados y a medida",
+        paragraphs: [
+          "Para cotizar pallets nuevos, indicá la medida, la cantidad y el uso previsto. También podés consultar por pallets usados o reciclados, sujetos a la evaluación de estado y disponibilidad.",
+          "Si necesitás pallets a medida, compartí las dimensiones, el peso y el tipo de carga, la forma de manipulación y la cantidad. Evaluamos la configuración adecuada antes de presupuestar."
+        ],
+        bullets: ["Pallets nuevos para depósitos, transporte y distribución", "Pallets usados o reciclados: consultar estado y disponibilidad", "Pallets a medida para cargas y circuitos específicos"]
+      },
+      {
+        heading: "Atención en CABA y Gran Buenos Aires",
+        paragraphs: [
+          "Recibimos consultas de empresas en la Ciudad Autónoma de Buenos Aires y en Zona Norte, Zona Oeste y Zona Sur del Gran Buenos Aires. Indicá la localidad y dirección de destino para evaluar la coordinación de entrega.",
+          "La posibilidad de entrega, los costos y los plazos se confirman caso por caso según el destino, la cantidad y el pedido. No se garantiza un plazo estándar."
+        ]
+      },
+      {
+        heading: "Qué datos necesitamos para preparar tu cotización",
+        paragraphs: [
+          "Para recibir una propuesta útil, informanos si buscás pallets nuevos, usados o a medida; las dimensiones; la cantidad aproximada; el tipo de carga; y la localidad de entrega.",
+          "Podés enviar estos datos desde el formulario de cotización. Confirmaremos los detalles comerciales y técnicos antes de avanzar."
+        ],
+        bullets: ["Tipo y medida del pallet", "Cantidad estimada", "Uso previsto y requisitos de carga", "Localidad de entrega en CABA o Gran Buenos Aires"]
+      }
     ],
-    related: [{ href: "/pallets-de-madera/", label: "Ver pallets de madera" }, { href: "/pallets-para-logistica/", label: "Ver pallets para logística" }, { href: "/#cotizar", label: "Consultar entrega y cotización" }],
+    related: [
+      { href: "/pallets-nuevos/", label: "Consultar pallets nuevos" },
+      { href: "/pallets-reciclados/", label: "Consultar pallets usados y reciclados" },
+      { href: "/pallets-a-medida/", label: "Consultar pallets a medida" },
+      { href: "/#cotizar", label: "Solicitar cotización en Buenos Aires" }
+    ],
   },
 };
 
