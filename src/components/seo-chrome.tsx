@@ -14,5 +14,5 @@ export function SeoHeader() {
 }
 
 export function SeoFooter() {
-  return <footer className="site-footer"><div className="section-shell footer-grid"><Link className="brand brand-footer" href="/"><Image className="brand-logo" src="/pallets-argentina-logo.png" alt="Pallets Argentina" width={714} height={349} /></Link><p>Una base confiable para operaciones que no paran.</p><div className="footer-links"><a href="/pallets-de-madera">Pallets de madera</a><a href="/pallets-para-exportacion">Exportación</a><Link href="/#cotizar">Contacto</Link></div></div><div className="section-shell footer-bottom"><span>© 2024 Pallets Argentina</span><span>Buenos Aires · Argentina</span></div></footer>;
+  return <footer className="site-footer"><div className="section-shell footer-grid"><Link className="brand brand-footer" href="/"><Image className="brand-logo" src="/pallets-argentina-logo.png" alt="Pallets Argentina" width={714} height={349} /></Link><p>Una base confiable para operaciones que no paran.</p><div className="footer-links"><a href="/pallets-de-madera">Pallets de madera</a><a href="/pallets-para-exportacion">Exportación</a><Link href="/blog">Blog</Link><Link href="/#cotizar">Contacto</Link></div></div><div className="section-shell footer-bottom"><span>© 2024 Pallets Argentina</span><span>Buenos Aires · Argentina</span></div></footer>;
 }
