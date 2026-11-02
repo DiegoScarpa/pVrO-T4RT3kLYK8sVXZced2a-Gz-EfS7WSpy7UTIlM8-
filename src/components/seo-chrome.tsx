@@ -7,7 +7,7 @@ export function SeoHeader() {
     <nav className="desktop-nav" aria-label="Navegación principal">
       <a href="/pallets-de-madera">Pallets</a>
       <a href="/pallets-para-logistica">Soluciones</a>
-      <a href="/pallets-buenos-aires">Buenos Aires</a>
+      <a href="/pallets-buenos-aires">Entregas</a>
     </nav>
     <Link className="header-cta" href="/#cotizar">Cotizar <span>↗</span></Link>
   </header>;

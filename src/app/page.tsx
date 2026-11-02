@@ -31,12 +31,12 @@ export default function Home() {
     <main>
       <header className="site-header">
         <a className="brand" href="#inicio" aria-label="Pallets Argentina, inicio"><Image className="brand-logo" src="/pallets-argentina-logo.png" alt="Pallets Argentina" width={714} height={349} priority /></a>
-        <nav className="desktop-nav" aria-label="Navegación principal"><a href="#productos">Productos</a><a href="/pallets-de-madera">Pallets de madera</a><a href="/pallets-buenos-aires">Buenos Aires</a></nav>
+        <nav className="desktop-nav" aria-label="Navegación principal"><a href="#productos">Productos</a><a href="/pallets-de-madera">Pallets de madera</a><a href="/pallets-buenos-aires">Entregas</a></nav>
         <a className="header-cta" href="#cotizar">Cotizar <span>↗</span></a>
       </header>
 
       <section id="inicio" className="hero section-shell">
-        <div className="hero-copy"><p className="eyebrow"><span className="eyebrow-dot" /> Fabricación y venta en Argentina</p><h1>Pallets de madera<br /><span>para tu operación.</span></h1><p className="hero-intro">Fabricamos pallets de madera para empresas que necesitan mover cargas con seguridad, continuidad y menos improvisación.</p><div className="hero-actions"><a className="button button-dark" href="#cotizar">Pedí tu cotización <span>↗</span></a><a className="text-link" href="#productos">Ver productos <span>↓</span></a></div><div className="hero-note"><span>✓</span> Madera seleccionada <span>•</span> Fabricación a medida</div></div>
+        <div className="hero-copy"><p className="eyebrow"><span className="eyebrow-dot" /> Fabricación y venta en Argentina</p><h1>Pallets de madera<br /><span>para tus operaciones.</span></h1><p className="hero-intro">Fabricamos pallets de madera para empresas que necesitan mover cargas con seguridad, continuidad y menos improvisación.</p><div className="hero-actions"><a className="button button-dark" href="#cotizar">Pedí tu cotización <span>↗</span></a><a className="text-link" href="#productos">Ver productos <span>↓</span></a></div><div className="hero-note"><span>✓</span> Madera seleccionada <span>•</span> Fabricación a medida</div></div>
         <div className="hero-art" aria-label="Pallets de madera en depósito" role="img"><div className="hero-image" /><div className="hero-stamp"><strong>Desde el 2000</strong><span>+20 años de experiencia</span></div></div>
       </section>
 

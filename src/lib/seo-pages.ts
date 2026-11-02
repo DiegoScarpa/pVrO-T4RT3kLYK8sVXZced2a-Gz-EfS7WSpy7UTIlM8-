@@ -21,7 +21,7 @@ export const commercialPages: Record<string, CommercialPageData> = {
     title: "Pallets de Madera en Argentina | Pallets Argentina",
     description: "Fabricación y venta de pallets de madera para depósitos, transporte y distribución. Consultá medidas estándar, especiales y disponibilidad.",
     eyebrow: "Pallets de madera",
-    h1: "Pallets de madera para tu operación",
+    h1: "Pallets de madera para tus operaciones",
     intro: "Fabricamos pallets de madera para empresas que necesitan una base firme, medidas claras y una respuesta comercial directa.",
     sections: [
       { heading: "Medidas estándar y soluciones especiales", paragraphs: ["Trabajamos con opciones como pallet Arlog, pallet Euro y formatos especiales. La medida correcta depende de la carga, el espacio disponible y el circuito de movimiento.", "Si tu operación necesita otra configuración, podés indicarla en el formulario de cotización junto con la cantidad y el destino."], bullets: ["Pallet Arlog de 1.200 × 1.000 mm", "Pallet Euro de 1.200 × 800 mm", "Pallet para tambor y cargas especiales a medida"] },
@@ -128,7 +128,7 @@ export const commercialPages: Record<string, CommercialPageData> = {
     h1: "Pallets de madera en Buenos Aires",
     intro: "Pallets Argentina informa atención en Buenos Aires, CABA, zona Norte, zona Oeste, zona Sur e interior del país. Confirmamos cada destino según volumen y pedido.",
     sections: [
-      { heading: "Qué podés consultar", paragraphs: ["Trabajamos con pallet Arlog, pallet Euro, pallet para tambor, medidas especiales y alternativas nuevas o recicladas. La disponibilidad se revisa con la medida y cantidad solicitadas."], bullets: ["Venta para empresas y compras por cantidad", "Pallets estándar y a medida", "Coordinación de entrega según destino"] },
+      { heading: "Qué podés consultar", paragraphs: ["Trabajamos con pallet Arlog, pallet Euro, pallet para tambor, medidas especiales y alternativas nuevas o recicladas. La disponibilidad se revisa con las medidas y cantidades solicitadas."], bullets: ["Venta para empresas y compras por cantidad", "Pallets estándar y a medida", "Coordinación de entrega según destino"] },
       { heading: "Cobertura y coordinación", paragraphs: ["Escribinos con tu localidad dentro de Buenos Aires, CABA o el interior para confirmar si podemos coordinar la entrega de tu pedido. No publicamos plazos ni costos generales porque dependen de la cantidad y del destino."] },
     ],
     related: [{ href: "/pallets-de-madera/", label: "Ver pallets de madera" }, { href: "/pallets-para-logistica/", label: "Ver pallets para logística" }, { href: "/#cotizar", label: "Consultar entrega y cotización" }],
