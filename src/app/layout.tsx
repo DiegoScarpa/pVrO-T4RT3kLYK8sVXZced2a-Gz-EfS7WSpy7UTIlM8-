@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import './globals.css';
 import './quote-form.css';
 import './targeted-updates.css';
@@ -23,5 +24,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="es-AR"><body>{children}</body></html>;
+  return <html lang="es-AR"><body>{children}<Script id="google-adsense" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7990281587192822" strategy="afterInteractive" crossOrigin="anonymous" /></body></html>;
 }
