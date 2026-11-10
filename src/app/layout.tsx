@@ -24,5 +24,14 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="es-AR"><body>{children}<Script id="google-adsense" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7990281587192822" strategy="afterInteractive" crossOrigin="anonymous" /></body></html>;
+  return <html lang="es-AR"><body>
+    <Script id="google-tag-manager-data-layer" strategy="beforeInteractive">
+      {`window.dataLayer = window.dataLayer || [];
+function gtag(){window.dataLayer.push(arguments);}
+gtag('js', new Date());`}
+    </Script>
+    <Script id="google-tag-manager" src="https://www.googletagmanager.com/gtm.js?id=GTM-KZ5CS7RD" strategy="beforeInteractive" />
+    {children}
+    <Script id="google-adsense" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7990281587192822" strategy="afterInteractive" crossOrigin="anonymous" />
+  </body></html>;
 }
